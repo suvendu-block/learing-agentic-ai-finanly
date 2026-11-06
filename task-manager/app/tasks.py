@@ -77,3 +77,19 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": "Task deleted successfully"}
+
+
+@router.get("/{task_id}/complete", response_model=TaskResponse)'
+def complete_task(task_id: int, db: Session = Depends(get_db)):
+    
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    task.completed = True
+
+    db.commit()
+    db.refresh(task)
+
+    return task
