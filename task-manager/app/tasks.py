@@ -93,3 +93,20 @@ def complete_task(task_id: int, db: Session = Depends(get_db)):
     db.refresh(task)
 
     return task
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@router.get('')
+
+ 
